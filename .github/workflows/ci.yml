@@ -1,0 +1,58 @@
+name: Java CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repo
+      uses: actions/checkout@v4
+
+    - name: Set up JDK 17
+      uses: actions/setup-java@v3
+      with:
+        distribution: temurin
+        java-version: '17'
+
+    - name: Build, test & generate reports
+      run: mvn clean verify
+
+    - name: Check for coverage report
+      id: coverage_check
+      run: |
+        if [ ! -d target/site/jacoco ]; then
+          echo "found=false" >> $GITHUB_OUTPUT
+        else
+          echo "found=true" >> $GITHUB_OUTPUT
+        fi
+
+    - name: Upload coverage report
+      if: steps.coverage_check.outputs.found == 'true'
+      uses: actions/upload-artifact@v4
+      with:
+        name: coverage-report
+        path: target/site/jacoco
+        if-no-files-found: ignore
+
+    - name: Upload Checkstyle report
+      if: steps.coverage_check.outputs.found == 'true'
+      uses: actions/upload-artifact@v4
+      with:
+        name: checkstyle-report
+        path: target/checkstyle-result.xml
+        if-no-files-found: ignore
+
+    - name: Upload SpotBugs report
+      if: steps.coverage_check.outputs.found == 'true'
+      uses: actions/upload-artifact@v4
+      with:
+        name: spotbugs-report
+        path: target/spotbugs.xml
+        if-no-files-found: ignore
+

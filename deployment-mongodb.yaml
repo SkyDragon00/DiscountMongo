@@ -1,0 +1,33 @@
+# Especifica la versión de la API de Kubernetes para recursos de tipo Deployment
+apiVersion: apps/v1
+# Indica que el recurso a crear es un Deployment
+kind: Deployment
+metadata:
+  # Nombre asignado al Deployment
+  name: mongodb-deployment
+  # Etiquetas para identificar y organizar el Deployment
+  labels:
+    app: mongodb
+spec:
+  # Número de réplicas (Pods) que se desean
+  replicas: 2                     
+  # Selector para identificar los Pods gestionados por este Deployment
+  selector:
+    matchLabels:
+      app: mongodb
+  # Plantilla para los Pods que se crearán
+  template:
+    metadata:
+      # Etiquetas para los Pods creados
+      labels:
+        app: mongodb
+    spec:
+      # Definición de los contenedores dentro del Pod
+      containers:
+        # Nombre del contenedor
+        - name: mongodb
+          # Imagen de Docker que se usará para el contenedor
+          image: mongo:latest
+          # Puertos expuestos por el contenedor
+          ports:
+            - containerPort: 27017  # Puerto en el que MongoDB escucha por defecto

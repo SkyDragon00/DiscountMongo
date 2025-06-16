@@ -1,0 +1,19 @@
+# Especifica la versión de la API de Kubernetes que se está utilizando
+apiVersion: v1
+# Indica que el recurso a crear es un Pod
+kind: Pod
+metadata:
+  # Nombre asignado al Pod
+  name: mongodb-pod
+  # Etiquetas para identificar y organizar el Pod
+  labels:
+    app: mongodb
+spec:
+  containers:
+    # Nombre del contenedor dentro del Pod
+    - name: mongodb
+      # Imagen de Docker que se usará para el contenedor
+      image: mongo:latest
+      # Puertos expuestos por el contenedor
+      ports:
+        - containerPort: 27017  # Puerto en el que MongoDB escucha por defecto
