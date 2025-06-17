@@ -9,16 +9,16 @@ spec:
   # 1) De dónde sacamos los manifests
   source:
     repoURL: https://github.com/SkyDragon00/DiscountMongo.git
-    targetRevision: HEAD            # rama o tag; aquí la última
+    targetRevision: HEAD            
     path: .                         
 
   # 2) Dónde lo desplegamos
   destination:
     server: https://kubernetes.default.svc
-    namespace: default              # o "mongodb" si prefieres otro namespace
+    namespace: default              
 
   # 3) Política de sincronización automática
   syncPolicy:
     automated:
-      prune: true                   # elimina recursos borrados en Git
-      selfHeal: true                # re-aplica si alguien rompe algo a mano
+      prune: true                   
+      selfHeal: true                
