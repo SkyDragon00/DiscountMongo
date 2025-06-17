@@ -6,18 +6,15 @@ metadata:
 spec:
   project: default
 
-  # 1) De dónde sacamos los manifests
   source:
     repoURL: https://github.com/SkyDragon00/DiscountMongo.git
     targetRevision: HEAD            
     path: .                         
 
-  # 2) Dónde lo desplegamos
   destination:
     server: https://kubernetes.default.svc
     namespace: default              
 
-  # 3) Política de sincronización automática
   syncPolicy:
     automated:
       prune: true                   
