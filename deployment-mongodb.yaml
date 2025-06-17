@@ -30,4 +30,4 @@ spec:
           image: mongo:latest
           # Puertos expuestos por el contenedor
           ports:
-            - containerPort: 27017  # Puerto en el que MongoDB escucha por defecto
+            - containerPort: 27017  # Puerto en el que MongoDB escucha por defecto, por Dome pro pro
