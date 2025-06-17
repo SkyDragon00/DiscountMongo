@@ -1,7 +1,7 @@
 apiVersion: argoproj . io/vlalphal
 kind: Application
 metadata :
-name: grafana
+name: mongodb
 namespace: argocd
 spec:
 project: default
