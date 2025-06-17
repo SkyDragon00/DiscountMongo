@@ -1,18 +1,24 @@
-apiVersion: argoproj . io/vlalphal
+apiVersion: argoproj.io/v1alpha1
 kind: Application
-metadata :
-name: mongodb
-namespace: argocd
+metadata:
+  name: mongodb-app
+  namespace: argocd
 spec:
-project: default
-source :
-repoURL: https://github.com/SkyDragon00/DiscountMongo
-chart: grafana
-targetRevision: IO. 3.1
-destination :
-server: https://kubernetes .default. svc
-namespace: monitoring
-syncP01icy:
-automated :
-selfHea1: true
-prune: true
+  project: default
+
+  # 1) De dónde sacamos los manifests
+  source:
+    repoURL: https://github.com/SkyDragon00/DiscountMongo.git
+    targetRevision: HEAD            # rama o tag; aquí la última
+    path: .                         
+
+  # 2) Dónde lo desplegamos
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: default              # o "mongodb" si prefieres otro namespace
+
+  # 3) Política de sincronización automática
+  syncPolicy:
+    automated:
+      prune: true                   # elimina recursos borrados en Git
+      selfHeal: true                # re-aplica si alguien rompe algo a mano
